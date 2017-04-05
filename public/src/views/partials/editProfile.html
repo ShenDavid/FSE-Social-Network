@@ -1,0 +1,95 @@
+<div class="container">
+    <h1>Edit Profile</h1>
+    <hr>
+    <div class="row">
+        <form class="form-horizontal" name="profileForm" role="form">
+            <div class="col-md-3">
+                <div class="text-center">
+                    <img src="{{profile.imageUrl}}" ng-hide="profileForm.file.$valid" class="avatar img-circle" alt="avatar">
+                    <img class="image-circle avatar" ng-show="profileForm.file.$valid" ngf-thumbnail="picFile">
+                    <h6>Upload Your Profile Photo</h6>
+                    <input type="file" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-model-invalid="errorFile" class="form-control">
+                </div>
+            </div>
+
+            <!-- edit form column -->
+            <div class="col-md-9 personal-info">
+                <div ng-show="newAlert" class="alert alert-info alert-dismissable">
+                    <a class="panel-close close" data-dismiss="alert" ng-click="newAlert=!newAlert">×</a>
+                    <i class="fa fa-coffee"></i> <strong>Profile has been saved successfully!</strong>
+                </div>
+                <h3>Personal info</h3>
+
+
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Name</label>
+                    <div class="col-lg-8">
+                        <input class="form-control" type="text" ng-model="profile.name" value="" placeholder="Your Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Address:</label>
+                    <div class="col-lg-8">
+                        <input class="form-control" type="text" ng-model="profile.address" value="" placeholder="Address">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Phone Number:</label>
+                    <div class="col-lg-8">
+                        <input class="form-control" type="text" ng-model="profile.phoneNumber" value="" placeholder="Phone Number">
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class='form-group col-md-10 typeahead-demo'>
+                <label for="search messages">
+                    Search and Add Family Members
+                </label>
+                <div class="input-group">
+                    <input type="text" ng-model="selected" uib-typeahead="user.profile.name for user in userList | filter:$viewValue | limitTo:8" class="form-control">
+                    <div class="input-group-btn">
+                        <input type="button" class="btn btn-primary" value="add" ng-click="addFamilyMember(selected)">Add</span>
+                      </input>
+                    </div>
+                </div>
+                <div class="family">
+                  <li class="animate-repeat" ng-repeat="username in profile.familyMembers | filter:q as results" >
+                    <label ng-class="{'color-online': true}">
+                      <span ng-class="{'glyphicon glyphicon-ok':user.lastStatusCode == 'Ok', 'glyphicon glyphicon-warning-sign':user.lastStatusCode == 'Help','glyphicon glyphicon-plus-sign':user.lastStatusCode == 'Emergency','glyphicon glyphicon-ban-circle':user.lastStatusCode == 'N/A'}"></span>
+                      <span>{{username + "\t"}}</span>
+                      <input type="button" class="btn btn-warning btn-sm" ng-click="removeFamilyMember(username)" value="Remove">
+                    </label>
+                  </li>
+                </div>
+            </div>
+
+            <div class="form-group col-md-4 col-md-offset-4">
+                <input type="button" class="btn btn-primary" ng-click="uploadProfile()" value="Save Changes">
+                <span></span>
+                <input type="reset" class="btn btn-default" value="Cancel">
+            </div>
+        </form>
+    </div>
+</div>
+<hr>
+
+<!-- <script type="text/ng-template" id="customTemplate.html">
+    <a>
+        <img ng-src="http://upload.wikimedia.org/wikipedia/commons/thumb/{{match.model.flag}}" width="16">
+        <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
+    </a>
+</script> -->
+
+<script type="text/ng-template" id="customPopupTemplate.html">
+    <div class="custom-popup-wrapper" ng-style="{top: position().top+'px', left: position().left+'px'}" style="display: block;" ng-show="isOpen() && !moveInProgress" aria-hidden="{{!isOpen()}}">
+        <p class="message">select location from drop down.</p>
+
+        <ul class="dropdown-menu" role="listbox">
+            <li class="uib-typeahead-match" ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)" role="option" id="{{::match.id}}">
+                <div uib-typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
+            </li>
+        </ul>
+    </div>
+</script>

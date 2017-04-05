@@ -1,0 +1,78 @@
+<div class="container">
+    <label ng-class="groupname">
+
+        <span>{{"This is group "+groupname + "\t"}}</span>
+
+    </label>
+
+    <hr>
+
+    provide help:
+    <li class="animate-repeat" ng-repeat="provider in providers" >
+
+        <label ng-class="provider">
+
+            <span>{{provider + "    "}}</span>
+
+        </label>
+
+    </li>
+
+    <hr>
+
+    need help:
+    <li class="animate-repeat" ng-repeat="needer in needers" >
+
+        <label ng-class="needer">
+
+            <span>{{needer + "  "}}</span>
+
+        </label>
+
+    </li>
+
+    <hr>
+
+    undefined:
+    <li class="animate-repeat" ng-repeat="noidentity in noidentities" >
+
+        <label ng-class="noidentity">
+
+            <span>{{noidentity + "  "}}</span>
+
+        </label>
+
+    </li>
+
+    <hr>
+
+    <div class="groupmes">
+        <ul>
+            <li ng-repeat="announcement in messages" class="thumbnail">
+                <div class="panel-heading">
+                    <div class="panel-title pull-left">
+                        {{ announcement.author }}
+                    </div>
+                    <div class="panel-title pull-right">{{ announcement.postedAt | date: 'MM.dd.yyyy HH:mma' }}</div>
+                    <div class="clearfix"></div>
+                    <!-- <div class="author pull-left"> </div>
+                    <div class="date pull-right"></div> -->
+                </div>
+                <div class="panel-body">
+                    {{announcement.content}}
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="panel-footer">
+        <form class="message-form" ng-submit="postGroupMessage()">
+            <div class="input-group">
+                <input class="form-control input-sm" placeholder="Type your group message here..." ng-model="newGroupMessage" ng-trim="false" autofocus>
+                <span class="input-group-btn"><button class="btn btn-warning btn-sm" id="btn-chat">Post</button></span>
+            </div>
+        </form>
+    </div>
+
+</div>

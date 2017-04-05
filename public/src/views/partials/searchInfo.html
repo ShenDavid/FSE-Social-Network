@@ -1,0 +1,123 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form id="citizens" ng-submit="searchCitizen()">
+                <div class="form-group">
+                    <lable for="search-citizens">
+                        Search Citizens By:
+                    </lable>
+                    <label class="radio-inline">
+                        <input type="radio" name="username" ng-model="CitizenSearchType.type" value="username">Username
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="status" ng-model="CitizenSearchType.type" value="statusCode">Status Code
+                    </label>
+                    <div class="input-group">
+                        <input type="text" id="searchCitizens" class="form-control" ng-model="citizenQuery" placeholder="Search for Citizens" />
+                        <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+
+            <form id="announcements" ng-submit="searchAnnouncements()">
+                <div class="form-group">
+                    <label for="search annoucements">
+                        Search Announcements
+                    </label>
+                    <div class="input-group">
+                        <input type="text" id="searchAnnouncement" ng-model="annoucementQuery" class="form-control" placeholder="Search for announcements" />
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <form id="messages" ng-submit="searchMessages()">
+                <div class="form-group">
+                    <label for="search messages">
+                        Search Messages
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="Message" ng-model="MessageSearchType.type" value="public">Public
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="private" ng-model="MessageSearchType.type" value="private">Private
+                    </label>
+                    <div class="input-group">
+                        <input type="text" id="searchMessages" class="form-control" ng-model="messageQuery" placeholder="Search for messages">
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<div id="CitizenResult" ng-show="searchIsTrigerred && searchType === 'USER'">
+    <hr>
+    <h4 class="text-center">Citizens</h4>
+    <hr>
+    <ul class="example-animate-container">
+        <li class="animate-repeat" ng-repeat="user in users | filter:q as results">
+            <label ng-class="{'color-online': user.accountStatus === 'Online'}">
+                <span ng-class="{'glyphicon glyphicon-ok':user.lastStatusCode == 'Ok', 'glyphicon glyphicon-warning-sign':user.lastStatusCode == 'Help','glyphicon glyphicon-plus-sign':user.lastStatusCode == 'Emergency','glyphicon glyphicon-ban-circle':user.lastStatusCode == 'N/A'}"></span>
+                <span>{{user.username + "\t"}}</span>
+                <!-- <button class="btn btn-warning btn-sm" id="btn-priv-chat" ng-if="user.accountStatus === 'Online' && user.username != currentUser.username" ng-click="openPrivateChat(user.username)">Chat </button> -->
+            </label>
+        </li>
+        <li class="animate-repeat" ng-if="results.length === 0 && searchIsTrigerred">
+            <strong>No results found...</strong>
+        </li>
+    </ul>
+</div>
+
+<div id="AnnouncementResult" ng-show="searchIsTrigerred && searchType === 'ANNOUNCEMENTS'">
+    <hr>
+    <h4 class="text-center">Announcements</h4>
+    <hr>
+    <div class="announcement-list">
+        <div ng-repeat="announcement in announcements | filter:q as results" class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title pull-left">
+                    {{ announcement.author }}
+                </div>
+                <div class="panel-title pull-right">{{ announcement.postedAt | date: 'MM.dd.yyyy HH:mma' }}</div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel-body">
+                {{announcement.content}}
+            </div>
+        </div>
+        <div class="animate-repeat" ng-if="results.length === 0 && searchIsTrigerred">
+            <strong>No results found...</strong>
+        </div>
+    </div>
+</div>
+<div class="MessageResult" ng-show="searchIsTrigerred && searchType === 'MESSAGES'">
+    <hr>
+    <h4 class="text-center">Messages</h4>
+    <hr>
+    <ul>
+        <li ng-repeat="message in msgs" class="thumbnail">
+            <div class="message">
+                <div class="author pull-left">{{ message.author }} </div>
+                <div class="date pull-right">{{ message.postedAt | date: 'MM.dd.yyyy HH:mma' }}</div>
+                <div class="body block" style="clear: both">{{ message.content }}</div>
+            </div>
+        </li>
+        <li class="animate-repeat" ng-if="messages.length === 0 && searchIsTrigerred">
+            <strong>No results found...</strong>
+        </li>
+    </ul>
+</div>
+
+<div id="loadMore" ng-show="result.length < cache.length">
+    <h5 class="text-center">
+        <a ng-click="fetchMoreItems()" style="cursor:pointer;">Load More Results...</a>
+    </h5>
+</div>

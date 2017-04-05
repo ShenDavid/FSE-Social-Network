@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="chat">
+        <ul>
+            <li ng-repeat="message in messages track by $index" class="thumbnail">
+                <div class="message">
+                    <div class="author pull-left">{{ message.author }} </div>
+                    <div class="date pull-right">{{ message.postedAt | date: 'MM.dd.yyyy HH:mma' }}</div>
+                    <div class="body block">{{ message.content }}</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="panel-footer">
+        <form class="message-form" ng-submit="postPublicMessage()">
+            <div class="input-group">
+                <input class="form-control input-sm" placeholder="Type your message here..." ng-model="newMessage" ng-trim="false" autofocus>
+                <span class="input-group-btn"><button class="btn btn-warning btn-sm" id="btn-chat">Post</button></span>
+            </div>
+        </form>
+    </div>
+
+</div>

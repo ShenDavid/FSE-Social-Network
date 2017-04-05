@@ -1,0 +1,251 @@
+h1 {
+    text-align: center;
+}
+h3 {
+    text-align: center;
+}
+.pink {
+    background-color: #e91e63 !important;
+}
+.indigo {
+    background-color: #3f51b5;
+}
+.color-online {
+    color: green;
+    font-weight: bold;
+}
+.avatar {
+    height: 100px !important;
+    width: 100px;
+}
+body {
+    background-color: #FFF !important;
+    padding-top: 70px !important;
+    min-height: 600px;
+}
+.image-circle {
+    border-radius: 50%;
+    height: 30px;
+    width: auto;
+}
+.awesome {
+    font-size: large;
+    color: gold;
+}
+.profile-dropdown:hover>.dropdown-menu {
+    display: block;
+}
+#profile {
+    padding-bottom: 5px;
+}
+.home-container {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+/*Side Bar*/
+
+.horizontal-collapse {
+    height: 70px;
+}
+#navigation-toggle {
+    background: rgba(3, 159, 244, .95);
+    color: white;
+}
+.show {
+    left: 0;
+}
+.sidebar-menu {
+    height: 100px;
+    width: 200px;
+}
+.navigation {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.navigation-items a {
+    display: block;
+    background-color: #444;
+    color: white;
+    line-height: 2em;
+    text-decoration: none;
+    padding: 10px 30px;
+    width: 100px;
+}
+.navigation-items a:hover {
+    background-color: #222;
+}
+
+/*chatbox*/
+
+.chat {
+    padding: 0px 40px;
+}
+.chat .panel-body {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 450px;
+}
+.author {
+    font-family: 'Amaranth', sans-serif;
+    font-size: 20px;
+}
+.date {
+    font-family: 'Amaranth', sans-serif;
+    font-size: 12px;
+}
+.chat li {
+    border-radius: 5px;
+    margin-bottom: 4px;
+    background-color: lightcyan;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.chat li .message .body {
+    clear: both;
+    padding-top: 10px;
+    font-family: 'Cormorant Garamond';
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 40px;
+    word-break: break-all;
+}
+
+/* wanya+ */
+
+.oksign {
+    font-size: 30px;
+    color: green;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+.wsign {
+    font-size: 30px;
+    color: yellow;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+.psign {
+    font-size: 30px;
+    color: red;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+/**
+ * Search Information Page Style
+ */
+
+.well-search-box {
+    margin-bottom: 20px;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* share status */
+
+.status {
+    padding: 0px 40px;
+}
+
+/* private message alert */
+
+.alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+    opacity: 1;
+    transition: opacity 0.6s;
+    margin-bottom: 15px;
+}
+.alert.success {
+    background-color: #4CAF50;
+}
+.alert.info {
+    background-color: #2196F3;
+}
+.alert.warning {
+    background-color: #ff9800;
+}
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.closebtn:hover {
+    color: black;
+}
+.typeahead-demo .custom-popup-wrapper {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    background-color: #f9f9f9;
+}
+.typeahead-demo .custom-popup-wrapper>.message {
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    color: #868686;
+}
+.typeahead-demo .custom-popup-wrapper>.dropdown-menu {
+    position: static;
+    float: none;
+    display: block;
+    min-width: 160px;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/* private message alert */
+
+div.rangeslider {
+    position: absolute;
+    top: 80px;
+    right: 80px;
+    width: 200px;
+    height: 100px;
+}
+
+/*log out button in small screen*/
+
+@media (min-width: 768px) {
+    #mb-logout {
+        display: none;
+    }
+}
+
+@media (min-width: 768px) {
+    #mb-edit {
+        display: none;
+    }
+}
+@media (max-width: 768px) {
+    .navbar-collapse .navbar-nav.navbar-right .profile-dropdown {
+        display: none;
+    }
+}
+
+
+input[type="button"].save-icon {
+  border-radius: 100px;
+  color: rgba(255,255,255,1.0);
+  width: 42px;
+  height: 42px;
+  overflow: hidden;
+  position: absolute;
+  right: 10px;
+  background: rgba(144,134,251,1.0) url(../assets/save-file.png);
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: 7px 8px;
+}

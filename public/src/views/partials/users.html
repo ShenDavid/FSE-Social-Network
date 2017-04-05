@@ -1,0 +1,22 @@
+<!--<div ng-controller="UserCtrl">-->
+<div>
+  <h5 class="col-lg-8">Select any community member to learn more about them!</h5>
+  <!-- <input type="search" ng-model="q" placeholder="filter users..." aria-label="filter friends" /> -->
+  <ul class="example-animate-container">
+    <li class="animate-repeat" ng-repeat="user in users | filter:q as results" ng-if="currentUser.privilage === 'Administrator' || user.active">
+
+      <label  >
+        <a href="#" ng-click="$event.preventDefault();viewProfile(user.username)" ng-class="{'color-online': user.accountStatus === 'Online'}" ><span>{{user.username + "\t"}}</span></a>
+        <span ng-class="{'glyphicon glyphicon-ok':user.lastStatusCode == 'Ok', 'glyphicon glyphicon-warning-sign':user.lastStatusCode == 'Help','glyphicon glyphicon-plus-sign':user.lastStatusCode == 'Emergency','glyphicon glyphicon-ban-circle':user.lastStatusCode == 'N/A'}"></span>
+        <button class="btn btn-default btn-sm" id="btn-priv-chat" ng-if="user.accountStatus === 'Online' && user.username != currentUser.username" ng-click="openPrivateChat(user.username)">Chat </button>
+      </label>
+
+    </li>
+    <li class="animate-repeat" ng-if="results.length === 0">
+      <strong>No results found...</strong>
+    </li>
+
+  </ul>
+
+<!--  <p>{{ currentUser.username }}</p>-->
+</div>

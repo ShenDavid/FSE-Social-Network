@@ -1,0 +1,82 @@
+<div class="container">
+    <div class="jumbotron">
+        <h2>{{ currentUser + "'s mailbox"}}</h2>
+    </div>
+    <ul class="nav nav-tabs">
+        <li ng-class="{active: activeTab == 'inbox'}"><a ng-click="showInbox()">Inbox</a></li>
+        <li ng-class="{active: activeTab == 'sent'}"><a ng-click="showSent()">Sent</a></li>
+    </ul>
+    <table ng-show="activeTab=='inbox'" class="table table-bordered table-condensed">
+        <thead>
+            <tr class="active">
+                <td>From</td>
+                <td>Subject</td>
+                <td>Date</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="email in emails" ng-click="showPopup(email)" class="info">
+                <td>{{ email.from }}</td>
+                <td>{{ email.subject}}</td>
+                <td>{{ email.date | date:'MMM d'}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <table ng-show="activeTab=='sent'" class="table table-bordered table-condensed">
+        <thead>
+            <tr class="active">
+                <td>To</td>
+                <td>Subject</td>
+                <td>Date</td>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr ng-repeat="email in sentEmails" ng-click="showPopup(email)" class="info">
+                <td>{{ email.to }}</td>
+                <td>{{ email.subject }}</td>
+                <td>{{ email.date | date:'MMM d'}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-primary" ng-click="showComposePopup()">Compose</button>
+
+    <div class="modal-content" ng-show="isPopupVisible">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="closePopup()">&times;</button>
+            <h3>{{selectedEmail.subject}}</h3>
+        </div>
+        <div class="modal-body">
+            <strong>From:</strong> {{selectedEmail.from}} <br/>
+            <strong>To:</strong> {{selectedEmail.to}}<br />
+            <strong>Date:</strong> {{selectedEmail.date | date:'MMM d'}} <br/>
+            <br/>
+            <span style="white-space:pre">{{selectedEmail.body}}</span>
+        </div>
+        <div class="modal-footer">
+            <a class="btn btn-md btn-danger" ng-click="delete()">Delete</a>
+            <a class="btn btn-md btn-info" ng-click="forward()">Forward</a>
+            <a class="btn btn-md btn-success" ng-click="reply()">Reply</a>
+            <a class="btn btn-md btn-primary" ng-click="closePopup()">Close</a>
+        </div>
+    </div>
+
+    <div class="modal-content" ng-show="isComposePopupVisible">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="closeComposePopup()">&times;</button>
+            <h3>Compose Email</h3>
+        </div>
+        <div class="modal-body">
+            <form>
+                <input type="text" placeholder="To" ng-model="composeEmail.to" style="width:95%;"><br />
+                <input type="text" placeholder="Subject" ng-model="composeEmail.subject" style="width:95%;"><br />
+                <textarea style="width:95%;" rows="10" ng-model="composeEmail.body"></textarea>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a class="btn" ng-click="closeComposePopup()">Close</a>
+            <a href="#/mails" class="btn btn-primary" ng-click="sendEmail()">Send</a>
+        </div>
+    </div>
+
+</div>

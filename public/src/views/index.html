@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Code Alpha</title>
+
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/chatstyle.css">
+    <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="angular-ui-notification/dist/angular-ui-notification.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="/leaflet-draw/dist/leaflet.draw.css" />
+    <link rel="stylesheet" href="/angularjs-slider/dist/rzslider.css" />
+    <link rel="stylesheet" href="/ng-dialog/css/ngDialog.min.css">
+    <link rel="stylesheet" href="/ng-dialog/css/ngDialog-theme-default.min.css">
+
+    <style>
+        html,
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: "Open Sans", sans-serif
+        }
+    </style>
+</head>
+
+<body ng-app="esnApp" ng-controller="ApplicationCtrl">
+    <!-- Static navbar -->
+    <!-- <header ng-controller="ApplicationCtrl"> -->
+    <header>
+        <!-- <div>
+            <a ui-sref="home">Emergency Social Network</a>
+        </div> -->
+        <nav class="navbar navbar-default navbar-light navbar-fixed-top" style="background-color: #e3f2fd;">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" ng-click="isNavCollapsed = !isNavCollapsed">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" ui-sref="home">Code Alpha</a>
+                </div>
+
+                <!-- </div> -->
+                <div class="collapse navbar-collapse" uib-collapse="isNavCollapsed">
+                    <ul class="nav navbar-nav">
+                        <!-- <li class="sidebar">
+                            <a href="#" class="nav-link" id="navigation-toggle" ng-click="isCollapsedHorizontal = !isCollapsedHorizontal">Menu<span class="glyphicon glyphicon-align-justify"></span></a>
+                        </li> -->
+                        <li><a ui-sref="chat" href="#" ng-click="handleCollapse()">Public Wall</a></li>
+                        <li><a ui-sref="users" href="#" ng-click="handleCollapse()">Directory</a></li>
+                        <li><a ui-sref="searchInfo" href="#" ng-click="handleCollapse()">Search information</a></li>
+                        <li><a ui-sref="groupin" href="#" ng-click="handleCollapse()">Group Chat</a></li>
+                        <li><a ui-sref="mails" href="#" ng-click="handleCollapse()">Inmail</a></li>
+						<li><a ui-sref="map" href="#" ng-click="handleCollapse()">Map</a></li>
+                        <li id="mb-logout" ng-if="currentUser"><a href="#" ng-click="hanleLogOut()">Logout <span class="glyphicon glyphicon-off"></span></a></li>
+                        <li id="mb-edit" ng-if="currentUser"><a ng-click="$event.preventDefault();handleEdit();" href="#">Edit Profile <span class="glyphicon glyphicon-pencil"></span></a></li>
+
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li ng-show="!currentUser">
+                            <a ui-sref="login" ng-click="handleCollapse()"> SignIn</a>
+                        </li>
+                        <li ng-if="currentUser" class="profile-dropdown" uib-dropdown is-open="status.isopen">
+                            <a id="profile" href="#" uib-dropdown ng-disabled="disabled">
+                                <span><img class="image-circle" src="{{currentUser.profile.imageUrl}}" alt="my gravatar" /></span>
+                                <span>Welcome, {{ currentUser.username }}</span>
+
+                            </a>
+                            <ul class="profile-dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                <li role="menuitem"><a ui-sref="editProfile" href="#">Edit Profile <span class="glyphicon glyphicon-pencil"></span></a></li>
+                                <li role="menuitem"><a href="#" ng-click="logOut()">Logout <span class="glyphicon glyphicon-off"></span></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </header>
+
+    <div ui-view></div>
+
+
+    <!-- dependencies -->
+    <script src="angular/angular.min.js"></script>
+    <script src="angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="jquery/dist/jquery.min.js"></script>
+    <script src="crypto-js/crypto-js.js"></script>
+    <script src="ng-file-upload/ng-file-upload.min.js"></script>
+
+    <script src="crypto-js/aes.js" charset="utf-8"></script>
+    <script src="crypto-js/sha512.js"></script>
+    <script type='text/javascript' src="cryptojslib/rollups/aes.js"></script>
+    <script type='text/javascript' src="angular-cryptography/mdo-angular-cryptography.js"></script>
+    <script src="angular-animate/angular-animate.min.js"></script>
+    <script src="angular-resource/angular-resource.min.js"></script>
+    <script src="angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="ngstorage/ngStorage.min.js"></script>
+    <script src="angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="angular-aria/angular-aria.min.js"></script>
+    <!-- <script src="socket.io-client/socket.io.js"></script> -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="angular-socket-io/socket.min.js"></script>
+    <script src="angular-ui-notification/dist/angular-ui-notification.min.js"></script>
+    <script src="/leaflet/dist/leaflet.js"></script>
+    <script src="/leaflet-draw/dist/leaflet.draw.js"></script>
+    <script src="/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>
+    <script src="/angularjs-slider/dist/rzslider.js"></script>
+    <script src="/ng-dialog/js/ngDialog.min.js"></script>
+
+    <!-- app -->
+    <script src="src/js/app.js"></script>
+    <!-- services -->
+    <script src="src/js/services/PrivateMessageService.js"></script>
+    <script src="src/js/services/MessageService.js"></script>
+    <script src="src/js/services/AuthService.js"></script>
+    <script src="src/js/services/SessionService.js"></script>
+    <script src="src/js/services/BlacklistService.js"></script>
+    <script src="src/js/services/SocketService.js"></script>
+    <script src="src/js/services/ChatService.js"></script>
+    <script src="src/js/services/UserService.js"></script>
+    <script src="src/js/services/StatusService.js"></script>
+    <script src="src/js/services/PostAnnounceService.js"></script>
+    <script src="src/js/services/GetAnnounceService.js"></script>
+    <script src="src/js/services/SearchInfoService.js"></script>
+    <script src="src/js/services/ProfileService.js"></script>
+    <script src="src/js/services/MarkerService.js"></script>
+    <script src="src/js/services/MailService.js"></script>
+    <script src="src/js/services/GroupChatService.js"></script>
+    <script src="src/js/services/GroupInService.js"></script>
+    <script src="src/js/services/GroupNameService.js"></script>
+    <script src="src/js/services/GroupMessageService.js"></script>
+    <script src="src/js/services/GroupMapService.js"></script>
+
+    <!-- controllers -->
+    <script src="src/js/controllers/ProfileController.js"></script>
+    <script src="src/js/controllers/ErrorController.js"></script>
+    <script src="src/js/controllers/HomeController.js"></script>
+    <script src="src/js/controllers/LoginController.js"></script>
+    <script src="src/js/controllers/ApplicationController.js"></script>
+    <script src="src/js/controllers/ModalInstanceCtrl.js"></script>
+    <script src="src/js/controllers/UserController.js"></script>
+    <script src="src/js/controllers/TipModalController.js"></script>
+    <script src="src/js/controllers/PrivateChatController.js"></script>
+    <script src="src/js/controllers/PublicChatController.js"></script>
+    <script src="src/js/controllers/AnnounceController.js"></script>
+    <script src="src/js/controllers/SearchInformationController.js"></script>
+    <script src="src/js/controllers/MailController.js"></script>
+    <script src="src/js/controllers/MapController.js"></script>
+    <script src="src/js/controllers/GroupChatController.js"></script>
+    <script src="src/js/controllers/GroupInController.js"></script>
+
+
+    <!-- directives -->
+    <script src="src/js/directives/SidebarDirective.js"></script>
+    <script src="src/js/directives/username.js"></script>
+
+</body>
+
+
+</html>

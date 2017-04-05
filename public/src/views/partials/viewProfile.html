@@ -1,0 +1,119 @@
+<div class="container">
+    <div class="row">
+
+      <h3>{{targetUser.username}}</h3>
+
+      <div class="text-center" >
+          <img src="{{profile.imageUrl}}" ng-hide="profileForm.file.$valid" class="avatar img-circle" alt="avatar">
+          <hr>
+      </div>
+
+      <form class="form-group" ng-show="{{writePrivilage}} && (targetUser.username != 'ESNAdmin')" name="userForm">
+          <label class="col-lg-3 control-label">Username</label>
+          <div class="col-lg-8">
+            <p ng-show="userForm.username.$invalid && !userForm.username.$pristine" class="help-block">You name is required.</p>
+            <p class="help-block" ng-show="userForm.username.$error.minlength">Username is too short.</p>
+            <p class="help-block" ng-show="userForm.username.$error.username">Username violates the rule.</p>
+            <input type="text" name="username" ng-minlength="3" class="form-control" ng-model="newUsername" ng-change="setUsername()" ng-model-options="{debounce:1500}" required>
+
+          </div>
+      </form>
+
+      <div class="col-lg-8" ng-show="{{writePrivilage}} && (targetUser.username != 'ESNAdmin')">
+        <label class="control-label">ChangePassword</label>
+        <form class="form-horizontal" name="adminProfile" role="form" ng-submit="setPassword()" >
+          <div class="input-group">
+            <input type="password" name="password" ng-minlength="4" placeholder="********" class="form-control" ng-model="newPassword" required>
+            <span class="input-group-btn "><button type="submit" class="btn btn-primary">Reset</button></span>
+          </div>
+          <p class="help-block" ng-show="adminProfile.password.$error.minlength">Password is too short.</p>
+        </form>
+      </div>
+
+      <p></p>
+
+        <div class="btn-group col-lg-8" ng-show="{{writePrivilage}} && (targetUser.username != 'ESNAdmin')">
+          <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'Citizen'" ng-click="setPrivilage()">Citizen</label>
+          <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'Coordinator'" ng-click="setPrivilage()">Coordinator</label>
+          <label class="btn btn-default" ng-model="radioModel" uib-btn-radio="'Administrator'" ng-click="setPrivilage()">Administrator</label>
+        </div>
+
+      <p></p>
+
+      <div class="form-group col-lg-8" ng-show="{{writePrivilage}} && (targetUser.username != 'ESNAdmin')">
+           <input type="button" class="btn btn-danger" ng-click="DeactivateUser(targetUser.username)" ng-show="targetUser.active" value="Deactivate">
+           <input type="button" class="btn btn-success" ng-click="ActivateUser(targetUser.username)" ng-show="!targetUser.active" value="Activate">
+      </div>
+
+      <hr ng-show="{{writePrivilage}} && (targetUser.username != 'ESNAdmin')">
+
+
+      <form class="form-horizontal col-lg-8" name="profileForm" role="form">
+
+            <!-- edit form column -->
+
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Name</label>
+                    <div class="col-lg-8">
+                        <input readonly class="form-control" type="text" ng-model="profile.name" value="{{profile.name}}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Address:</label>
+                    <div class="col-lg-8">
+                        <input readonly class="form-control" type="text" ng-model="profile.address" value="{{profile.address}}" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Phone Number:</label>
+                    <div class="col-lg-8">
+                        <input readonly class="form-control" type="text" ng-model="profile.phoneNumber" value="{{profile.phoneNumber}}">
+                    </div>
+                </div>
+                <div class='form-group col-md-10 typeahead-demo'>
+                    <label for="search messages" ng-hide="profile.familyMembers.length === 0">
+                        Family Members
+                    </label>
+                    <!-- <div class="input-group">
+                        <input type="text" ng-model="selected" uib-typeahead="user.profile.name for user in userList | filter:$viewValue | limitTo:8" class="form-control">
+                        <div class="input-group-btn">
+                            <button class="btn btn-primary" ng-click="addFamilyMember(selected)">Add</span>
+                            </button>
+                        </div>
+                    </div> -->
+                    <div class="family" >
+                      <li class="animate-repeat" ng-repeat="username in profile.familyMembers | filter:q as results" >
+                        <label>
+                          <span ng-class="{'glyphicon glyphicon-ok':user.lastStatusCode == 'Ok', 'glyphicon glyphicon-warning-sign':user.lastStatusCode == 'Help','glyphicon glyphicon-plus-sign':user.lastStatusCode == 'Emergency','glyphicon glyphicon-ban-circle':user.lastStatusCode == 'N/A'}"></span>
+                          <span>{{username + "\t"}}</span>
+                          <!-- <input type="button" class="btn btn-warning btn-sm" ng-click="removeFamilyMember(username)" value="Remove"> -->
+                        </label>
+                      </li>
+                    </div>
+
+                    <button class="btn btn-primary" ng-click="showComposePopup()">Send Mail to {{profile.name}}</button>
+                    <div class="modal-content" ng-show="isComposePopupVisible">
+                        <div class="modal-header">
+                            <button type="button" class="close" ng-click="closeComposePopup()">&times;</button>
+                            <h3>Compose Email</h3>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <input type="text" placeholder="To" ng-model="composeEmail.to" style="width:95%;"><br />
+                                <input type="text" placeholder="Subject" ng-model="composeEmail.subject" style="width:95%;"><br />
+                                <textarea style="width:95%;" rows="10" ng-model="composeEmail.body"></textarea>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn" ng-click="closeComposePopup()">Close</a>
+                            <a class="btn btn-primary" ng-click="sendEmail()">Send</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+</div>

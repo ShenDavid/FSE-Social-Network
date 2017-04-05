@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- <input type="search" ng-model="q" placeholder="filter users..." aria-label="filter friends" /> -->
+            Please select your identity in group.
+            <div class="status-group">
+                <label class="radio-inline">
+                    <input type="radio" name="optradio" ng-model="identity" value="offer">Offer help!</label>
+                <label class="radio-inline">
+                    <input type="radio" name="optradio" ng-model="identity" value="needer">Need help!</label>
+            </div>
+        </div>
+
+            <hr>
+
+        <div class="col-md-13">
+            <hr>
+            The following {{groups.length}} groups are existing groups.
+            <ul class="example-animate-container">
+                <li class="status-group" ng-repeat="group in groups" >
+
+                    <label class="radio-inline">
+
+                        <span>{{group + "\t"}}</span>
+                        <button class="btn btn-primary" ng-click="joinGroup(group)">Join</button>
+                    </label>
+
+
+                </li>
+
+                <li class="animate-repeat" ng-if="results.length === 0">
+                    <strong>No results found...</strong>
+                </li>
+
+            </ul>
+
+            <hr>
+
+            No group you want? Create a new one
+            <form class="form-horizontal" ng-submit="createGroup()">
+                <div class="input-group">
+                    <input class="form-control input-sm" placeholder="Type group name here..." ng-model="newGroup" ng-trim="false" autofocus>
+
+                </div>
+                <span class="input-group-btn"><button class="btn btn-warning btn-sm" id="btn-chat">Create Group</button></span>
+            </form>
+
+            <!--  <p>{{ currentUser.username }}</p>-->
+        </div>
+    </div>
+</div>

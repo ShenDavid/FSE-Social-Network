@@ -1,0 +1,25 @@
+<h2>Chatting with {{ targetName }}</h2>
+
+<div class="container">
+    <div class="chat">
+        <ul>
+            <li ng-repeat="privatemessage in privatemessages" class="thumbnail">
+                <div class="message">
+                    <div class="author pull-left">{{ privatemessage.author }} </div>
+                    <div class="date pull-right">{{ privatemessage.postedAt | date: 'MM.dd.yyyy HH:mma' }}</div>
+                    <div class="body block">{{ privatemessage.content }}</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="panel-footer">
+        <form class="message-form" ng-submit="postPrivateMessage()">
+            <div class="input-group">
+                <input class="form-control input-sm" placeholder="Type your message here..." ng-model="newPrivateMessage" ng-trim="false" autofocus>
+                <span class="input-group-btn"><button class="btn btn-warning btn-sm" id="btn-chat">Send</button></span>
+            </div>
+        </form>
+    </div>
+
+</div>
